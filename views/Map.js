@@ -51,7 +51,9 @@ const Map = () => {
           marker.current = undefined;
           setActiveMarkers(mapMarkers());
         }}
-      ></Marker>
+      >
+        <Icon reverse size={15} name="car" type="font-awesome" />
+      </Marker>
     );
   };
   const [activeMarkers, setActiveMarkers] = useState(mapMarkers());
