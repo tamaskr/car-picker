@@ -1,25 +1,22 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
+import PropTypes from 'prop-types';
+import CarList from '../components/CarList';
 
-const Home = () => {
- return (
-   <>
-      <View style={styles.container}>
-        <Text>Home</Text>
-      </View>
-   <StatusBar style="auto"/>
-   </>
- );
+const Home = ({navigation}) => {
+  return (
+    <>
+      <SafeAreaView>
+        <CarList navigation={navigation} />
+      </SafeAreaView>
+      <StatusBar style="auto" />
+    </>
+  );
 };
 
-const styles = StyleSheet.create({
- container: {
-   flex: 1,
-   backgroundColor: '#fff',
-   alignItems: 'center',
-   justifyContent: 'center',
- },
-});
+Home.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default Home;

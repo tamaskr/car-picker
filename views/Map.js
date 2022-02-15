@@ -6,8 +6,7 @@ import {Marker} from 'react-native-maps';
 import {Icon} from 'react-native-elements';
 
 const Map = () => {
-  const data = require('../data/locations.json');
-  const cards = data.placemarks;
+  const cards = require('../data/locations.json').placemarks;
   const marker = useRef();
   const mapRef = useRef();
 
@@ -22,8 +21,8 @@ const Map = () => {
     const cardRegion = {
       latitude: card.coordinates[1],
       longitude: card.coordinates[0],
-      latitudeDelta: 0.03,
-      longitudeDelta: 0.03,
+      latitudeDelta: 0.02,
+      longitudeDelta: 0.02,
     };
     mapRef.current.animateToRegion(cardRegion, 1000);
   })

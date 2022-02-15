@@ -15,7 +15,7 @@ const TabScreen = () => {
           let iconName;
           switch (route.name) {
             case 'Home':
-              iconName = 'home';
+              iconName = 'list';
               break;
             case 'Map':
               iconName = 'map';
@@ -25,7 +25,7 @@ const TabScreen = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} options={{ title: 'Car Picker' }}></Tab.Screen>
+      <Tab.Screen name="Home" component={Home} options={{ title: 'List' }}></Tab.Screen>
       <Tab.Screen name="Map" component={Map} options={{headerShown: false}}></Tab.Screen>
     </Tab.Navigator>
   );
