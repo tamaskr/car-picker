@@ -1,25 +1,49 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
+import MapView from 'react-native-map-clustering';
+import {Marker} from 'react-native-maps';
 
 const Map = () => {
- return (
-   <>
-      <View style={styles.container}>
-        <Text>Map</Text>
-      </View>
-   <StatusBar style="auto"/>
-   </>
- );
+  const data = require('../data/locations.json');
+  const cards = data.placemarks;
+
+  const mapMarkers = () => {
+    return cards.map((card) => (
+      <Marker
+        key={card.vin}
+        coordinate={{
+          latitude: card.coordinates[1],
+          longitude: card.coordinates[0],
+        }}
+        title={card.name}
+      >
+      </Marker>
+    ));
+  };
+  return (
+    <>
+      <MapView
+        style={{...StyleSheet.absoluteFillObject}}
+        showsUserLocation={true}
+        initialRegion={{
+          latitude: 37.1,
+          longitude: -95.7,
+          latitudeDelta: 10,
+          longitudeDelta: 45,
+        }}
+      >
+        {mapMarkers()}
+      </MapView>
+      <StatusBar style="auto" />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
- container: {
-   flex: 1,
-   backgroundColor: '#fff',
-   alignItems: 'center',
-   justifyContent: 'center',
- },
+  map: {
+    height: '100%',
+  },
 });
 
 export default Map;
