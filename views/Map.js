@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import MapView from 'react-native-map-clustering';
 import {Marker} from 'react-native-maps';
@@ -9,12 +9,24 @@ const Map = () => {
   const data = require('../data/locations.json');
   const cards = data.placemarks;
   const marker = useRef();
+  const mapRef = useRef();
 
   // If there is a marker in focus, the callOut will be displayed
   const prepareCallout = () => {
     if (marker.current !== undefined && marker.current !== null)
       marker.current.showCallout();
   };
+
+  // Center a card on the map when the user clicks on it
+  const centerCard= ((card) => {
+    const cardRegion = {
+      latitude: card.coordinates[1],
+      longitude: card.coordinates[0],
+      latitudeDelta: 0.03,
+      longitudeDelta: 0.03,
+    };
+    mapRef.current.animateToRegion(cardRegion, 1000);
+  })
 
   // Map out the basic data from locations.array and show on the map
   const mapMarkers = () => {
@@ -27,6 +39,7 @@ const Map = () => {
         }}
         title={card.name}
         onPress={() => {
+          centerCard(card);
           setActiveMarkers(focusOnMarker(card));
         }}
       >
@@ -52,7 +65,7 @@ const Map = () => {
           setActiveMarkers(mapMarkers());
         }}
       >
-        <Icon reverse size={15} name="car" type="font-awesome" />
+        <Icon reverse size={20} name="car" type="font-awesome" />
       </Marker>
     );
   };
@@ -60,6 +73,7 @@ const Map = () => {
   return (
     <>
       <MapView
+        ref={mapRef}
         provider="google"
         loadingEnabled={true}
         style={{...StyleSheet.absoluteFillObject}}
