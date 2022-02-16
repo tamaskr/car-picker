@@ -42,7 +42,9 @@ const CarList = ({navigation}) => {
 
       {!isEmpty && (
         <View style={styles.listView}>
-          <Text style={styles.counterText}>Showing {resultCounter} results</Text>
+          <Text style={styles.counterText}>
+            Showing {resultCounter} results
+          </Text>
           <FlatList
             ref={listRef}
             style={styles.list}

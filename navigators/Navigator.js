@@ -25,8 +25,16 @@ const TabScreen = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} options={{ title: 'List' }}></Tab.Screen>
-      <Tab.Screen name="Map" component={Map} options={{headerShown: false}}></Tab.Screen>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{title: 'List'}}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Map"
+        component={Map}
+        options={{headerShown: false}}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
