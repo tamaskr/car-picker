@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import MapView from 'react-native-map-clustering';
-import {Marker} from 'react-native-maps';
+import {Callout, Marker} from 'react-native-maps';
 import {Icon} from 'react-native-elements';
 
 const Map = () => {
@@ -17,7 +17,7 @@ const Map = () => {
   };
 
   // Center a card on the map when the user clicks on it
-  const centerCard= ((card) => {
+  const centerCard = (card) => {
     const cardRegion = {
       latitude: card.coordinates[1],
       longitude: card.coordinates[0],
@@ -25,7 +25,7 @@ const Map = () => {
       longitudeDelta: 0.02,
     };
     mapRef.current.animateToRegion(cardRegion, 1000);
-  })
+  };
 
   // Map out the basic data from locations.array and show on the map
   const mapMarkers = () => {
@@ -43,6 +43,12 @@ const Map = () => {
         }}
       >
         <Icon reverse size={15} name="car" type="font-awesome" />
+        <Callout tooltip>
+          <View style={styles.bubble}>
+            <Text style={styles.nameText}>{card.name}</Text>
+            <Text>{card.address}</Text>
+          </View>
+        </Callout>
       </Marker>
     ));
   };
@@ -65,6 +71,12 @@ const Map = () => {
         }}
       >
         <Icon reverse size={20} name="car" type="font-awesome" />
+        <Callout tooltip>
+          <View style={styles.bubble}>
+            <Text style={styles.nameText}>{card.name}</Text>
+            <Text>{card.address}</Text>
+          </View>
+        </Callout>
       </Marker>
     );
   };
@@ -100,6 +112,19 @@ const Map = () => {
 const styles = StyleSheet.create({
   map: {
     height: '100%',
+  },
+  bubble: {
+    alignItems: 'flex-start',
+    backgroundColor: '#fefefe',
+    borderRadius: 6,
+    borderColor: '#ccc',
+    borderWidth: 0.5,
+    padding: 15,
+    width: Dimensions.get('window').width - 50,
+  },
+  nameText: {
+    fontWeight: '600',
+    fontSize: 20,
   },
 });
 

@@ -11,6 +11,7 @@ const CarList = ({navigation}) => {
   const [filteredList, setFilteredList] = useState(cars);
   const [searchQuery, setSearchQuery] = useState('');
   const [isEmpty, setIsEmpty] = useState(false);
+  const [resultCounter, setResultCounter] = useState(completeList.length);
 
   const listRef = useRef();
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
@@ -26,6 +27,7 @@ const CarList = ({navigation}) => {
       );
     });
     setFilteredList(filter);
+    setResultCounter(filter.length);
     filter.length === 0 ? setIsEmpty(true) : setIsEmpty(false);
   };
 
@@ -37,8 +39,10 @@ const CarList = ({navigation}) => {
         onChangeText={onChangeSearch}
         value={searchQuery}
       />
+
       {!isEmpty && (
         <View style={styles.listView}>
+          <Text style={styles.counterText}>Showing {resultCounter} results</Text>
           <FlatList
             ref={listRef}
             style={styles.list}
@@ -85,6 +89,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     shadowOpacity: 0.1,
   },
+  counterText: {
+    marginLeft: 15,
+    marginTop: 10,
+    marginBottom: 5,
+    fontWeight: '500',
+    fontSize: 16,
+  },
   listView: {
     flex: 1,
   },
@@ -96,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginTop: 50,
+    fontSize: 20,
   },
   scrollTopButton: {
     position: 'absolute',
